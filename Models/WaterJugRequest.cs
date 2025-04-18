@@ -6,22 +6,13 @@ namespace WaterJugChallenge.Models
 {
     public class WaterJugRequest
     {
-        [Required(ErrorMessage = "x_capacity is required")]
-        [Range(1, int.MaxValue, ErrorMessage = "x_capacity must be a positive integer")]
-        [JsonPropertyName("x_capacity")]
-        [JsonConverter(typeof(StrictIntConverter))]
+        [Range(1, int.MaxValue, ErrorMessage = "X capacity must be a positive integer")]
         public int X_capacity { get; set; }
 
-        [Required(ErrorMessage = "y_capacity is required")]
-        [Range(1, int.MaxValue, ErrorMessage = "y_capacity must be a positive integer")]
-        [JsonPropertyName("y_capacity")]
-        [JsonConverter(typeof(StrictIntConverter))]
+        [Range(1, int.MaxValue, ErrorMessage = "Y capacity must be a positive integer")]
         public int Y_capacity { get; set; }
 
-        [Required(ErrorMessage = "z_amount_wanted is required")]
-        [Range(1, int.MaxValue, ErrorMessage = "z_amount_wanted must be a positive integer")]
-        [JsonPropertyName("z_amount_wanted")]
-        [JsonConverter(typeof(StrictIntConverter))]
+        [Range(1, int.MaxValue, ErrorMessage = "Target amount must be a positive integer")]
         public int Z_amount_wanted { get; set; }
     }
 

@@ -5,6 +5,9 @@ using System.Text.Json;
 
 namespace WaterJugChallenge.Controllers
 {
+    /// <summary>
+    /// Controller for solving the Water Jug Challenge
+    /// </summary>
     [ApiController]
     [Route("api/[controller]")]
     public class WaterJugController : ControllerBase
@@ -16,7 +19,29 @@ namespace WaterJugChallenge.Controllers
             _waterJugService = waterJugService;
         }
 
+        /// <summary>
+        /// Solves the Water Jug Challenge for given jug capacities and target amount
+        /// </summary>
+        /// <remarks>
+        /// Sample request:
+        ///
+        ///     POST /api/WaterJug/solve
+        ///     {
+        ///        "x_capacity": 2,
+        ///        "y_capacity": 10,
+        ///        "z_amount_wanted": 4
+        ///     }
+        ///
+        /// </remarks>
+        /// <param name="request">The Water Jug Challenge parameters</param>
+        /// <returns>A sequence of steps to solve the challenge</returns>
+        /// <response code="200">Returns the solution steps</response>
+        /// <response code="400">If the input parameters are invalid</response>
+        /// <response code="500">If an unexpected error occurs</response>
         [HttpPost("solve")]
+        [ProducesResponseType(typeof(WaterJugResponse), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status500InternalServerError)]
         public IActionResult Solve([FromBody] WaterJugRequest request)
         {
             if (!ModelState.IsValid)

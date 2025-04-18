@@ -17,6 +17,7 @@ C:\Users\LordZuku\Desktop\chicks\WaterJugChallenge\obj\Debug\net8.0\WaterJugChal
 C:\Users\LordZuku\Desktop\chicks\WaterJugChallenge\obj\Debug\net8.0\WaterJugChallenge.csproj.CoreCompileInputs.cache
 C:\Users\LordZuku\Desktop\chicks\WaterJugChallenge\obj\Debug\net8.0\WaterJugChallenge.MvcApplicationPartsAssemblyInfo.cs
 C:\Users\LordZuku\Desktop\chicks\WaterJugChallenge\obj\Debug\net8.0\WaterJugChallenge.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\LordZuku\Desktop\chicks\WaterJugChallenge\obj\Debug\net8.0\WaterJugChallenge.sourcelink.json
 C:\Users\LordZuku\Desktop\chicks\WaterJugChallenge\obj\Debug\net8.0\staticwebassets.build.json
 C:\Users\LordZuku\Desktop\chicks\WaterJugChallenge\obj\Debug\net8.0\staticwebassets.development.json
 C:\Users\LordZuku\Desktop\chicks\WaterJugChallenge\obj\Debug\net8.0\staticwebassets\msbuild.WaterJugChallenge.Microsoft.AspNetCore.StaticWebAssets.props

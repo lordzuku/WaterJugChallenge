@@ -3,6 +3,7 @@
 This is a .NET Web API that solves the classic Water Jug Challenge. The API accepts the capacities of two jugs and a target amount, then returns the sequence of steps needed to measure exactly the target amount.
 
 ## Table of Contents
+
 - [Requirements](#requirements)
 - [Setup and Running](#setup-and-running)
 - [API Documentation](#api-documentation)
@@ -20,6 +21,7 @@ This is a .NET Web API that solves the classic Water Jug Challenge. The API acce
 ## Setup and Running
 
 1. Clone the repository:
+
    ```bash
    git clone https://github.com/lordzuku/WaterJugChallenge.git
    cd WaterJugChallenge
@@ -28,18 +30,73 @@ This is a .NET Web API that solves the classic Water Jug Challenge. The API acce
 2. Open the solution in Visual Studio or VS Code
 
 3. Restore NuGet packages:
+
    ```bash
    dotnet restore
    ```
 
 4. Run the application:
+
    ```bash
    dotnet run
    ```
 
-The API will be available at `https://localhost:5117`
+The API will be available at `https://localhost:7159` and `http://localhost:5117`
+
+## Rebuilding and Running
+
+To perform a clean rebuild and run of the application:
+
+1. Clean the solution to remove all build artifacts:
+
+   ```bash
+   dotnet clean
+   ```
+
+2. Build the solution:
+
+   ```bash
+   dotnet build
+   ```
+
+3. Run the application:
+
+   ```bash
+   dotnet run
+   ```
+
+This sequence ensures a fresh build of the application, which can be helpful when:
+
+- Making significant code changes
+- Updating dependencies
+- Troubleshooting build issues
+- Ensuring a clean state before deployment
 
 ## API Documentation
+
+### Swagger UI
+
+The API documentation is available through Swagger UI. To access it:
+
+1. Start the API server:
+
+   ```bash
+   dotnet run
+   ```
+
+2. Open your browser and navigate to:
+
+   ```
+   https://localhost:7159/swagger
+   ```
+
+The Swagger UI provides:
+
+- Interactive API documentation
+- Sample requests and responses
+- Detailed parameter descriptions
+- Error response formats
+- The ability to test the API directly from the browser
 
 ### POST /api/WaterJug/solve
 
@@ -122,6 +179,7 @@ The algorithm explores two paths simultaneously to find the optimal solution:
 ### Operations
 
 The algorithm implements three fundamental operations:
+
 - Fill a jug to its capacity
 - Empty a jug completely
 - Transfer water between jugs
@@ -151,19 +209,84 @@ All errors return appropriate HTTP status codes and descriptive error messages.
 
 ## Testing
 
-The solution includes comprehensive unit tests covering:
+The solution includes comprehensive testing options:
 
-- Input validation
-- Algorithm correctness
+### Script-Based Testing
+
+Two test scripts are provided for different operating systems:
+
+1. **Windows PowerShell** (`test.ps1`):
+
+   ```powershell
+   .\test.ps1
+   ```
+
+2. **Unix-like systems** (`test.sh`):
+
+   ```bash
+   chmod +x test.sh
+   ./test.sh
+   ```
+
+Both scripts test the API endpoints using various test cases covering:
+
+- Valid requests with solutions
+- Invalid requests (negative/zero capacities)
 - Edge cases
 - Error scenarios
 
-Run tests using:
+> **Note**: Use `test.ps1` on Windows and `test.sh` on Unix-like systems (Linux, macOS, or Windows with WSL/Git Bash).
 
-```bash
+### TODO: Dotnet Testing
 
-dotnet test
-```
+- [ ] Configure and implement proper dotnet testing framework
+- [ ] Add unit tests for core algorithm logic
+- [ ] Add integration tests for API endpoints
+- [ ] Set up CI/CD pipeline with automated testing
+
+### API Testing with Curl
+
+A test script (`test.sh`) is provided to test the API endpoints using curl. The script includes various test cases covering:
+
+- Valid requests with solutions
+- Invalid requests (negative/zero capacities)
+- Edge cases
+- Error scenarios
+
+#### Prerequisites
+
+1. Ensure you have `curl` installed on your system
+2. Make sure you're using a Unix-like environment (Linux, macOS, or Windows with WSL/Git Bash)
+
+#### Running the Tests
+
+1. Start the API server in one terminal:
+
+   ```bash
+   dotnet run --launch-profile https
+   ```
+
+2. In another terminal, make the test script executable:
+
+   ```bash
+   chmod +x test.sh
+   ```
+
+3. Run the test script:
+
+   ```bash
+   ./test.sh
+   ```
+
+   or
+
+   ```bash
+   bash test.sh
+   ```
+
+The script will execute all test cases and display the responses. Note that the `--insecure` flag is used because we're testing against a local development server with a self-signed certificate.
+
+To view the test cases, you can examine the `test.sh` file in the project root directory.
 
 ## Design Decisions
 

@@ -1,6 +1,7 @@
 using WaterJugChallenge.Models;
 using System.Collections.Generic;
 using System;
+using Microsoft.Extensions.Logging;
 
 namespace WaterJugChallenge.Services
 {
@@ -13,9 +14,18 @@ namespace WaterJugChallenge.Services
     {
         private readonly HashSet<(int, int)> _visitedStatesX = new HashSet<(int, int)>();
         private readonly HashSet<(int, int)> _visitedStatesY = new HashSet<(int, int)>();
+        private readonly ILogger<WaterJugService> _logger;
+
+        public WaterJugService(ILogger<WaterJugService> logger)
+        {
+            _logger = logger;
+        }
 
         public WaterJugResponse SolveWaterJugProblem(WaterJugRequest request)
         {
+            _logger.LogInformation("Solving water jug problem for X={X}, Y={Y}, Z={Z}", 
+                request.X_capacity, request.Y_capacity, request.Z_amount_wanted);
+
             var response = new WaterJugResponse();
             int x = request.X_capacity;
             int y = request.Y_capacity;
@@ -23,17 +33,19 @@ namespace WaterJugChallenge.Services
 
             if (x <= 0 || y <= 0 || z <= 0)
             {
+                _logger.LogWarning("Invalid input: non-positive values detected");
                 throw new ArgumentException("all values must be positive integers");
             }
 
             if (z > Math.Max(x, y))
             {
+                _logger.LogWarning("Invalid input: target amount {Z} exceeds larger jug capacity", z);
                 throw new ArgumentException("target amount cannot be greater than the larger jug");
             }
 
-            // Using GCD to check if solution is possible - if z is not divisible by GCD(x,y), no solution exists
             if (z % GCD(x, y) != 0)
             {
+                _logger.LogWarning("No solution exists: Z={Z} is not divisible by GCD({X},{Y})", z, x, y);
                 throw new ArgumentException("no solution exists for the given values");
             }
 
@@ -50,6 +62,7 @@ namespace WaterJugChallenge.Services
                 {
                     if (!_visitedStatesX.Add((bucketX1, bucketY1)))
                     {
+                        _logger.LogWarning("Cycle detected in path starting with X");
                         throw new ArgumentException("No solution exists - cycle detected in path starting with X");
                     }
 
@@ -93,6 +106,7 @@ namespace WaterJugChallenge.Services
                     {
                         pathX.Last().Status = "Solved";
                         response.Solution = pathX;
+                        _logger.LogInformation("Solution found in {Steps} steps starting with X", step);
                         return response;
                     }
                 }
@@ -101,6 +115,7 @@ namespace WaterJugChallenge.Services
                 {
                     if (!_visitedStatesY.Add((bucketX2, bucketY2)))
                     {
+                        _logger.LogWarning("Cycle detected in path starting with Y");
                         throw new ArgumentException("No solution exists - cycle detected in path starting with Y");
                     }
 
@@ -144,6 +159,7 @@ namespace WaterJugChallenge.Services
                     {
                         pathY.Last().Status = "Solved";
                         response.Solution = pathY;
+                        _logger.LogInformation("Solution found in {Steps} steps starting with Y", step);
                         return response;
                     }
                 }
@@ -151,6 +167,7 @@ namespace WaterJugChallenge.Services
                 step++;
             }
 
+            _logger.LogWarning("Maximum steps ({MaxSteps}) exceeded", MAX_STEPS);
             throw new ArgumentException($"Solution requires more than {MAX_STEPS} steps, which exceeds the maximum allowed");
         }
 
