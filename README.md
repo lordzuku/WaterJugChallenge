@@ -167,12 +167,10 @@ The solution implements a dual-path approach to solve the Water Jug Challenge ef
 The algorithm explores two paths simultaneously to find the optimal solution:
 
 1. **Path X**: Starting with bucket X
-   - Tracks states using `_visitedStatesX` HashSet to prevent cycles
    - Follows sequence: Fill X → Transfer to Y → Empty Y
    - Returns first valid solution found
 
 2. **Path Y**: Starting with bucket Y
-   - Tracks states using `_visitedStatesY` HashSet to prevent cycles
    - Follows sequence: Fill Y → Transfer to X → Empty X
    - Returns first valid solution found
 
@@ -186,10 +184,9 @@ The algorithm implements three fundamental operations:
 
 ### Optimization
 
-- Uses HashSet for O(1) state lookups
-- Implements cycle detection to prevent infinite loops
-- Maximum step limit (1000) to prevent excessive computation
+- Maximum step limit of 1000 to prevent excessive computation
 - Returns the first valid solution found, which is guaranteed to be optimal
+- If no solution is found within 1000 steps, returns an error
 
 ## Error Handling
 
@@ -201,8 +198,7 @@ The API implements comprehensive error handling for various scenarios:
    - No solution possible (GCD check)
 
 2. **Runtime Errors**
-   - Cycle detection in state transitions
-   - Maximum step limit exceeded
+   - Maximum step limit (1000) exceeded
    - Unexpected server errors
 
 All errors return appropriate HTTP status codes and descriptive error messages.

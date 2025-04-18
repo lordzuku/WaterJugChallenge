@@ -12,8 +12,6 @@ namespace WaterJugChallenge.Services
 
     public class WaterJugService : IWaterJugService
     {
-        private readonly HashSet<(int, int)> _visitedStatesX = new HashSet<(int, int)>();
-        private readonly HashSet<(int, int)> _visitedStatesY = new HashSet<(int, int)>();
         private readonly ILogger<WaterJugService> _logger;
 
         public WaterJugService(ILogger<WaterJugService> logger)
@@ -60,12 +58,6 @@ namespace WaterJugChallenge.Services
             {
                 if (bucketX1 != z && bucketY1 != z)
                 {
-                    if (!_visitedStatesX.Add((bucketX1, bucketY1)))
-                    {
-                        _logger.LogWarning("Cycle detected in path starting with X");
-                        throw new ArgumentException("No solution exists - cycle detected in path starting with X");
-                    }
-
                     if (bucketX1 == 0)
                     {
                         bucketX1 = x;
@@ -113,12 +105,6 @@ namespace WaterJugChallenge.Services
 
                 if (bucketX2 != z && bucketY2 != z)
                 {
-                    if (!_visitedStatesY.Add((bucketX2, bucketY2)))
-                    {
-                        _logger.LogWarning("Cycle detected in path starting with Y");
-                        throw new ArgumentException("No solution exists - cycle detected in path starting with Y");
-                    }
-
                     if (bucketY2 == 0)
                     {
                         bucketY2 = y;
