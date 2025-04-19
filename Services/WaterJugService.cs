@@ -41,6 +41,7 @@ namespace WaterJugChallenge.Services
                 throw new ArgumentException("target amount cannot be greater than the larger jug");
             }
 
+            // Bezout's Identity: A solution exists only if z is a multiple of GCD(x,y)
             if (z % GCD(x, y) != 0)
             {
                 _logger.LogWarning("No solution exists: Z={Z} is not divisible by GCD({X},{Y})", z, x, y);
@@ -54,6 +55,8 @@ namespace WaterJugChallenge.Services
             int step = 1;
             const int MAX_STEPS = 1000;
 
+            // Dual-path strategy: Explore both starting points simultaneously to find the optimal solution
+            // This is necessary because the shortest path might start with either jug
             while (step <= MAX_STEPS)
             {
                 if (bucketX1 != z && bucketY1 != z)
@@ -153,10 +156,13 @@ namespace WaterJugChallenge.Services
                 step++;
             }
 
+            // Maximum steps limit prevents infinite loops and potential denial-of-service attacks
+            // The limit is set high enough to accommodate most practical cases while maintaining security
             _logger.LogWarning("Maximum steps ({MaxSteps}) exceeded", MAX_STEPS);
             throw new ArgumentException($"Solution requires more than {MAX_STEPS} steps, which exceeds the maximum allowed");
         }
 
+        // Euclidean algorithm for GCD is used because it's efficient and essential for determining solution existence
         private int GCD(int a, int b)
         {
             while (b != 0)
