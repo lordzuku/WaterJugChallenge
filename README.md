@@ -1,6 +1,6 @@
 # Water Jug Challenge API
 
-This is a .NET Web API that solves the classic Water Jug Challenge. The API accepts the capacities of two jugs and a target amount, then returns the sequence of steps needed to measure exactly the target amount.
+This is a .NET Web API that solves the Water Jug Challenge for Chicks Gold. The API accepts the capacities of two jugs and a target amount, then returns the sequence of steps needed to measure exactly the target amount.
 
 ## Table of Contents
 
@@ -17,6 +17,7 @@ This is a .NET Web API that solves the classic Water Jug Challenge. The API acce
 - .NET 8.0 or later
 - Visual Studio with C# extensions (recommended)
 - Git (for version control)
+- Windows (recommended) - Mac is untested
 
 ## Setup and Running
 
@@ -41,7 +42,7 @@ This is a .NET Web API that solves the classic Water Jug Challenge. The API acce
    dotnet run
    ```
 
-The API will be available at `https://localhost:7159` and `http://localhost:5117`
+The API will be available at `https://localhost:7159` and `http://localhost:5117` - or whatever is configured in the Properties/launchSettings.json file under the "applicationUrl" settings.
 
 ## Rebuilding and Running
 
